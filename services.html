@@ -28,7 +28,6 @@
       background-color: #09141f;
     }
     body {
-      /* Optional: adds a dark overlay for better contrast with content */
       position: relative;
     }
     body::before {
@@ -183,31 +182,67 @@
       margin-bottom: 1.7rem; min-height: 70px;
       text-shadow: 0 2px 8px #0080ff33;
     }
+    /* SILVER GLASSY BUTTONS */
     .card-3d .pick-btn {
       margin-top: auto;
-      background: linear-gradient(98deg, #37b6ff 60%, #d1ecff 100%);
-      color: #005ba9; font-weight: 700;
-      padding: .91rem 2.2rem; border: none;
-      border-radius: 2.3rem;
-      box-shadow: 0 6px 20px #37b6ff38, 0 2px 7px #fff8, 0 0 0 2px #baeaff inset;
-      font-size: 1.12rem; letter-spacing: 1.1px;
-      transition: transform .17s, box-shadow .18s, background .18s;
-      cursor: pointer; will-change: transform; outline: none;
-      position: relative; overflow: hidden;
-      filter: drop-shadow(0 2px 10px #37b6ff66);
+      background: linear-gradient(120deg, #f4f4f8 30%, #d1d8dd 55%, #c1c4c9 80%, #f4f9ff 100%);
+      color: #232b32;
+      font-weight: 800;
+      padding: 0.95rem 2.4rem;
+      border: none;
+      border-radius: 2.5rem;
+      box-shadow: 0 6px 22px #b2c9de44, 0 2px 9px #fff9, 0 0 20px #fff8, 0 0 0 2px #e7eefc88 inset;
+      font-size: 1.15rem;
+      letter-spacing: 1.1px;
+      transition: 
+        transform 0.18s, 
+        box-shadow 0.18s,
+        background 0.22s,
+        filter 0.18s;
+      cursor: pointer;
+      will-change: transform, box-shadow, filter;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      filter: drop-shadow(0 2px 14px #fafcffaa);
+    }
+    .card-3d .pick-btn:before {
+      /* Top glossy shine */
+      content: "";
+      display: block;
+      position: absolute;
+      top: 2px; left: 10px; right: 10px; height: 13px;
+      background: linear-gradient(90deg,rgba(255,255,255,0.78),rgba(255,255,255,0.05));
+      border-radius: 1.3rem 1.3rem 2.5rem 2.5rem;
+      opacity: 0.7;
+      pointer-events: none;
+      filter: blur(0.4px);
+    }
+    .card-3d .pick-btn:after {
+      /* Animated glint on hover */
+      content: "";
+      position: absolute;
+      top: 0; left: -70px;
+      width: 50px; height: 100%;
+      background: linear-gradient(120deg,rgba(255,255,255,0.3) 10%,rgba(255,255,255,0.95) 50%,rgba(255,255,255,0.1) 90%);
+      opacity: 0; pointer-events: none;
+      transform: skewX(-28deg);
+      transition: left .44s cubic-bezier(.61,-0.11,.35,1.19), opacity .2s;
+      z-index: 2;
+    }
+    .card-3d .pick-btn:hover:after {
+      left: 120%;
+      opacity: .77;
+      transition: left .44s cubic-bezier(.61,-0.11,.35,1.19), opacity .21s;
     }
     .card-3d .pick-btn:active {
-      transform: scale(.96); background: #1849a3;
-      color: #fff;
+      transform: scale(.96);
+      background: linear-gradient(120deg, #e5e8ea 0%, #c3c7cc 80%);
+      color: #00306a;
+      filter: brightness(1.1);
     }
-    .card-3d .pick-btn::after {
-      content: ''; position: absolute; inset: -6px;
-      border-radius: 3rem; border: 2.3px solid #37b6ff88;
-      box-shadow: 0 0 12px #37b6ff66;
-      opacity: 0; pointer-events: none; transition: opacity .18s;
-    }
-    .card-3d .pick-btn:focus::after {
-      opacity: 1;
+    .card-3d .pick-btn:focus {
+      box-shadow: 0 0 0 3px #87e0ffbb, 0 6px 22px #b2c9de44, 0 2px 9px #fff9, 0 0 20px #fff8;
     }
     @media (max-width: 1200px) {
       .cards-container { gap: 1.2rem;}
@@ -293,40 +328,4 @@
     <div class="card-3d">
       <div class="card-title">Cloud Solutions & Hosting</div>
       <div class="card-desc">
-        Ultra-fast, secure cloud hosting with automated backups, SSL, and scalable resources. Hassle-free migrations and 24/7 support.
-      </div>
-      <button class="pick-btn" onclick="pickService('Cloud Solutions & Hosting')">Pick Service</button>
-    </div>
-    <!-- CARD 3 -->
-    <div class="card-3d">
-      <div class="card-title">AI Automation & Integrations</div>
-      <div class="card-desc">
-        Automate your business: chatbots, AI-driven workflows, API integrations. Unlock efficiency with state-of-the-art AI tools.
-      </div>
-      <button class="pick-btn" onclick="pickService('AI Automation & Integrations')">Pick Service</button>
-    </div>
-    <!-- CARD 4 -->
-    <div class="card-3d">
-      <div class="card-title">Digital Branding & Graphics</div>
-      <div class="card-desc">
-        Next-gen branding: logos, brand kits, animated graphics, 3D visuals. Stand out with VirtualWareCloud’s unique creative edge.
-      </div>
-      <button class="pick-btn" onclick="pickService('Digital Branding & Graphics')">Pick Service</button>
-    </div>
-    <!-- CARD 5 -->
-    <div class="card-3d">
-      <div class="card-title">E-commerce Solutions</div>
-      <div class="card-desc">
-        End-to-end store setups, Shopify, WooCommerce, and custom online shops. Fast, secure, ready for payments and scaling.
-      </div>
-      <button class="pick-btn" onclick="pickService('E-commerce Solutions')">Pick Service</button>
-    </div>
-    <!-- CARD 6 -->
-    <div class="card-3d">
-      <div class="card-title">IT Support & Security</div>
-      <div class="card-desc">
-        Proactive device protection, site hardening, cyber security audits, remote support, and rapid troubleshooting—peace of mind, always.
-      </div>
-      <button class="pick-btn" onclick="pickService('IT Support & Security')">Pick Service</button>
-    </div>
-  </div
+        Ultra-fast, secure cloud hosting with automated backups, SSL, and scalable resources. Hassle-free migrations and 24/7 support
