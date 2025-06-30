@@ -19,10 +19,25 @@
     html, body {
       margin: 0; padding: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at 60% 10%, var(--light) 60%, #b8c8de 100%);
       font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
       color: var(--primary);
       display: flex; flex-direction: column;
+      /* Sci-fi glossy 3D background */
+      background: url('images/bg_sci_fi_cloud.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #09141f;
+    }
+    body {
+      /* Optional: adds a dark overlay for better contrast with content */
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      background: linear-gradient(140deg,rgba(14,26,38,0.75) 0%,rgba(14,22,38,0.63) 80%,rgba(44,77,112,0.15) 100%);
+      z-index: 0;
     }
     /* HEADER */
     header {
@@ -34,6 +49,7 @@
     .header-bar {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.7rem 1.6rem; border-bottom: 1px solid #e0e9f1;
+      position: relative; z-index: 2;
     }
     .header-logo {
       display: flex; align-items: center; gap: 0.8rem; text-decoration: none;
@@ -104,36 +120,52 @@
       flex: 1 1 auto;
       display: flex; flex-direction: column; align-items: center;
       padding: 2.2rem 1rem 2rem 1rem;
-      background: linear-gradient(160deg, #fafdff 60%, #d1e6fa 100%);
       min-height: 60vh;
+      position: relative; z-index: 1;
     }
     .title-3d {
-      font-size: 2.15rem; color: var(--primary); font-weight: 800;
+      font-size: 2.15rem; color: #e7eefc; font-weight: 800;
       margin-bottom: 2.1rem; text-align: center; letter-spacing: 1.5px;
-      text-shadow: 0 5px 16px #cbeaff;
+      text-shadow: 0 5px 24px #7be0ff99, 0 2px 14px #243763cc;
+      filter: drop-shadow(0 4px 14px #fff5);
     }
     .cards-container {
       display: flex; gap: 2.2rem; flex-wrap: wrap;
       justify-content: center; width: 100%; max-width: 1300px;
     }
     .card-3d {
-      background: var(--card-bg); color: #fff;
-      border-radius: var(--radius); box-shadow: var(--shadow);
+      background: linear-gradient(140deg,rgba(29,41,54,0.89) 60%,rgba(92,122,155,0.43) 100%);
+      backdrop-filter: blur(1.5px) brightness(1.14) saturate(1.2);
+      color: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
       width: 325px; min-height: 305px; perspective: 1300px;
       transition: transform .36s cubic-bezier(.22,.68,.55,1.13), box-shadow .27s;
       transform-style: preserve-3d; position: relative;
       overflow: visible; display: flex; flex-direction: column;
       align-items: center; justify-content: flex-start;
       padding: 2.1rem 1.2rem 1.4rem 1.2rem;
-      margin-bottom: 2.2rem; border: 1.3px solid #59d6ff44;
+      margin-bottom: 2.2rem; border: 1.6px solid #86e1ff66;
       animation: cardPop 0.8s cubic-bezier(.16,1.25,.32,1.01) backwards;
+      /* Glass/gloss effect */
+      box-shadow: 0 8px 34px #27eaff33, 0 2px 6px #37b6ff44, 0 0 0 2px #a2e3ff44 inset;
       /* 3D animation */
       will-change: transform, box-shadow;
     }
+    .card-3d::before {
+      content: "";
+      position: absolute;
+      top: 12px; left: 17px; right: 17px; height: 20px;
+      border-radius: 2.3rem 2.3rem 2.5rem 2.5rem;
+      background: linear-gradient(90deg,rgba(255,255,255,0.28),rgba(255,255,255,0.01));
+      opacity: .5;
+      pointer-events: none;
+      z-index: 2;
+      filter: blur(0.7px);
+    }
     .card-3d:hover, .card-3d:focus-within {
       transform: rotateY(10deg) scale(1.045);
-      box-shadow: 0 18px 48px #37b6ff66, 0 0 40px #fffbe820;
+      box-shadow: 0 18px 48px #37b6ff88, 0 0 64px #fffbe855;
       z-index: 2;
+      border: 1.6px solid #b3f0ff;
     }
     @keyframes cardPop {
       from { transform: scale(.82) translateY(36px); opacity: 0;}
@@ -142,28 +174,31 @@
     .card-3d .card-title {
       font-size: 1.33rem; font-weight: 700;
       margin-bottom: 1.12rem; letter-spacing: 1.08px;
-      color: #37b6ff; text-shadow: 0 3px 12px #001d52b3;
+      color: #a3d7ff; text-shadow: 0 3px 12px #001d52b3, 0 2px 10px #aef8ff77;
       text-align: center;
     }
     .card-3d .card-desc {
       font-size: 1.06rem; line-height: 1.7;
-      color: #e4f7ff; text-align: center;
+      color: #eaf8ff; text-align: center;
       margin-bottom: 1.7rem; min-height: 70px;
+      text-shadow: 0 2px 8px #0080ff33;
     }
     .card-3d .pick-btn {
       margin-top: auto;
-      background: linear-gradient(98deg, #37b6ff 60%, #1849a3 100%);
-      color: #fff; font-weight: 700;
+      background: linear-gradient(98deg, #37b6ff 60%, #d1ecff 100%);
+      color: #005ba9; font-weight: 700;
       padding: .91rem 2.2rem; border: none;
       border-radius: 2.3rem;
-      box-shadow: 0 6px 20px #37b6ff38, 0 2px 7px #fff8;
+      box-shadow: 0 6px 20px #37b6ff38, 0 2px 7px #fff8, 0 0 0 2px #baeaff inset;
       font-size: 1.12rem; letter-spacing: 1.1px;
       transition: transform .17s, box-shadow .18s, background .18s;
       cursor: pointer; will-change: transform; outline: none;
       position: relative; overflow: hidden;
+      filter: drop-shadow(0 2px 10px #37b6ff66);
     }
     .card-3d .pick-btn:active {
       transform: scale(.96); background: #1849a3;
+      color: #fff;
     }
     .card-3d .pick-btn::after {
       content: ''; position: absolute; inset: -6px;
@@ -206,7 +241,6 @@
     .footer-credit a {
       color: #fff; text-decoration: none; font-weight: 600;
     }
-    /* Glow on hover for footer icons */
     .footer-icon svg { filter: drop-shadow(0 0 10px #37b6ff88); }
     @media (max-width: 500px) {
       .footer-row { gap: 1rem;}
@@ -295,30 +329,4 @@
       </div>
       <button class="pick-btn" onclick="pickService('IT Support & Security')">Pick Service</button>
     </div>
-  </div>
-</main>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-row">
-    <a class="footer-icon" href="mailto:thabo.phaahla@virtualwarecloud.com" title="Email">
-      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
-        <rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M3 7l9 7 9-7"/>
-      </svg>
-    </a>
-    <a class="footer-icon" href="https://wa.me/27820412395" title="WhatsApp" target="_blank">
-      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/><path d="M8 12.5c1 .8 2.5 2 4.5 2 2 0 3-1.2 3-2.5"/>
-      </svg>
-    </a>
-    <a class="footer-icon" href="https://www.instagram.com/virtualwarecloud" title="Instagram" target="_blank">
-      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
-        <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/>
-      </svg>
-    </a>
-    <a class="footer-icon" href="https://www.facebook.com/virtualwarecloud" title="Facebook" target="_blank">
-      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/><path d="M13 8v2h2v2h-2v4h-2v-4H9v-2h2V8h2z"/>
-      </svg>
-    </a>
-    <a class="footer-icon" href="https://virtualwarecloud
+  </div
