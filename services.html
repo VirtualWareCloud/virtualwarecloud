@@ -1,10 +1,324 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services | VirtualWareCloud</title><link rel="stylesheet" href="css/styles.css"></head>
-<body><header><nav><img src="images/VirtualWareCloudNoBGK.png" class="logo"><ul><li><a href="index.html">Home</a></li>
-<li><a href="services.html">Services</a></li><li><a href="contact.html">Contact Us</a></li></ul></nav></header>
-<main><h1>Our Services</h1><ul><li>Cloud Migration</li><li>AI Integration & Solutions</li>
-<li>Custom Software Development</li><li>IT & Cybersecurity Consulting</li></ul></main>
-<footer>&copy; 2025 VirtualWareCloud.com</footer></body></html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services | VirtualWareCloud</title>
+  <link rel="icon" href="images/logo.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #222d3a;
+      --secondary: #073763;
+      --accent: #37b6ff;
+      --light: #e9f4fa;
+      --card-bg: #192537ee;
+      --shadow: 0 10px 32px #001f5444, 0 2px 6px #37b6ff33;
+      --radius: 2rem;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 60% 10%, var(--light) 60%, #b8c8de 100%);
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      color: var(--primary);
+      display: flex; flex-direction: column;
+    }
+    /* HEADER */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 14px #2222;
+      padding: 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 1.6rem; border-bottom: 1px solid #e0e9f1;
+    }
+    .header-logo {
+      display: flex; align-items: center; gap: 0.8rem; text-decoration: none;
+    }
+    .header-logo img {
+      height: 52px; border-radius: 50%;
+      box-shadow: 0 2px 14px #37b6ff55;
+      background: #fafdff;
+    }
+    .header-title {
+      font-weight: 800; font-size: 1.7rem; color: var(--primary); letter-spacing: 1px;
+      margin-left: 0.2rem;
+    }
+    nav.main-nav {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    nav.main-nav a {
+      font-weight: 600; color: var(--primary);
+      text-decoration: none; transition: color 0.2s;
+      padding: 0.4rem 1rem; border-radius: 1.2rem;
+      font-size: 1.07rem;
+    }
+    nav.main-nav a.active, nav.main-nav a:hover {
+      color: #fff; background: var(--accent);
+      box-shadow: 0 2px 8px #37b6ff33;
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 4px;
+      cursor: pointer; margin-left: 1.3rem;
+    }
+    .hamburger span {
+      width: 25px; height: 3px; background: var(--primary);
+      border-radius: 2px; transition: all 0.3s;
+    }
+    .mobile-nav {
+      display: none; flex-direction: column; background: #fff;
+      box-shadow: 0 8px 24px #2222; position: absolute;
+      width: 92vw; max-width: 400px; left: 50%;
+      transform: translateX(-50%); top: 73px; z-index: 101;
+      border-radius: 1.2rem; padding: 1.2rem 1.5rem;
+      gap: 1rem;
+      animation: menuDrop .4s cubic-bezier(.27,1.18,.29,1.01);
+    }
+    @keyframes menuDrop {
+      from { opacity: 0; transform: translateX(-50%) translateY(-18px);}
+      to   { opacity: 1; transform: translateX(-50%) translateY(0);}
+    }
+    .mobile-nav a {
+      padding: .7rem 1.1rem; border-radius: 1rem;
+      font-size: 1.13rem; color: var(--primary); font-weight: 600;
+      text-decoration: none; transition: background .18s;
+    }
+    .mobile-nav a.active, .mobile-nav a:hover {
+      background: var(--accent); color: #fff;
+    }
+    @media (max-width: 800px) {
+      nav.main-nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .header-title { font-size: 1.11rem; }
+      .header-bar { padding: 0.7rem 0.5rem; }
+      .header-logo img { height: 40px;}
+    }
+    /* MAIN */
+    main {
+      flex: 1 1 auto;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 2.2rem 1rem 2rem 1rem;
+      background: linear-gradient(160deg, #fafdff 60%, #d1e6fa 100%);
+      min-height: 60vh;
+    }
+    .title-3d {
+      font-size: 2.15rem; color: var(--primary); font-weight: 800;
+      margin-bottom: 2.1rem; text-align: center; letter-spacing: 1.5px;
+      text-shadow: 0 5px 16px #cbeaff;
+    }
+    .cards-container {
+      display: flex; gap: 2.2rem; flex-wrap: wrap;
+      justify-content: center; width: 100%; max-width: 1300px;
+    }
+    .card-3d {
+      background: var(--card-bg); color: #fff;
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      width: 325px; min-height: 305px; perspective: 1300px;
+      transition: transform .36s cubic-bezier(.22,.68,.55,1.13), box-shadow .27s;
+      transform-style: preserve-3d; position: relative;
+      overflow: visible; display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 2.1rem 1.2rem 1.4rem 1.2rem;
+      margin-bottom: 2.2rem; border: 1.3px solid #59d6ff44;
+      animation: cardPop 0.8s cubic-bezier(.16,1.25,.32,1.01) backwards;
+      /* 3D animation */
+      will-change: transform, box-shadow;
+    }
+    .card-3d:hover, .card-3d:focus-within {
+      transform: rotateY(10deg) scale(1.045);
+      box-shadow: 0 18px 48px #37b6ff66, 0 0 40px #fffbe820;
+      z-index: 2;
+    }
+    @keyframes cardPop {
+      from { transform: scale(.82) translateY(36px); opacity: 0;}
+      to   { transform: scale(1) translateY(0); opacity: 1;}
+    }
+    .card-3d .card-title {
+      font-size: 1.33rem; font-weight: 700;
+      margin-bottom: 1.12rem; letter-spacing: 1.08px;
+      color: #37b6ff; text-shadow: 0 3px 12px #001d52b3;
+      text-align: center;
+    }
+    .card-3d .card-desc {
+      font-size: 1.06rem; line-height: 1.7;
+      color: #e4f7ff; text-align: center;
+      margin-bottom: 1.7rem; min-height: 70px;
+    }
+    .card-3d .pick-btn {
+      margin-top: auto;
+      background: linear-gradient(98deg, #37b6ff 60%, #1849a3 100%);
+      color: #fff; font-weight: 700;
+      padding: .91rem 2.2rem; border: none;
+      border-radius: 2.3rem;
+      box-shadow: 0 6px 20px #37b6ff38, 0 2px 7px #fff8;
+      font-size: 1.12rem; letter-spacing: 1.1px;
+      transition: transform .17s, box-shadow .18s, background .18s;
+      cursor: pointer; will-change: transform; outline: none;
+      position: relative; overflow: hidden;
+    }
+    .card-3d .pick-btn:active {
+      transform: scale(.96); background: #1849a3;
+    }
+    .card-3d .pick-btn::after {
+      content: ''; position: absolute; inset: -6px;
+      border-radius: 3rem; border: 2.3px solid #37b6ff88;
+      box-shadow: 0 0 12px #37b6ff66;
+      opacity: 0; pointer-events: none; transition: opacity .18s;
+    }
+    .card-3d .pick-btn:focus::after {
+      opacity: 1;
+    }
+    @media (max-width: 1200px) {
+      .cards-container { gap: 1.2rem;}
+      .card-3d { width: 98vw; max-width: 360px; }
+    }
+    @media (max-width: 700px) {
+      .title-3d { font-size: 1.24rem;}
+      .card-3d { min-height: 230px; }
+      main { padding-top: 1.5rem;}
+    }
+    /* FOOTER */
+    footer {
+      background: linear-gradient(96deg, #1b2635 70%, #37b6ff33 100%);
+      color: #fff;
+      padding: 2.2rem 1rem 1rem 1rem; text-align: center;
+      font-size: 1rem; border-top-left-radius: 2rem; border-top-right-radius: 2rem;
+      margin-top: auto; box-shadow: 0 -6px 32px #001e2d33; position: relative; z-index: 5;
+    }
+    .footer-row {
+      display: flex; justify-content: center; gap: 2.1rem;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .footer-icon {
+      display: inline-block; margin: 0 0.3rem; transition: transform .18s;
+      border-radius: 50%; background: #fff3; padding: .45rem;
+    }
+    .footer-icon:hover { transform: scale(1.13) rotate(-6deg); background: #37b6ff22;}
+    .footer-credit {
+      margin-top: 1.12rem; font-size: .95rem; color: #b6d9fa;
+    }
+    .footer-credit a {
+      color: #fff; text-decoration: none; font-weight: 600;
+    }
+    /* Glow on hover for footer icons */
+    .footer-icon svg { filter: drop-shadow(0 0 10px #37b6ff88); }
+    @media (max-width: 500px) {
+      .footer-row { gap: 1rem;}
+      .footer-icon { padding: .27rem; }
+      .footer-credit { font-size: .78rem;}
+    }
+  </style>
+</head>
+<body>
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-bar">
+    <a class="header-logo" href="index.html">
+      <img src="images/logo.png" alt="VirtualWareCloud Logo"/>
+      <span class="header-title">VIRTUALWARE<span style="color:#37b6ff;">CLOUD</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hamburger" id="menuBtn" aria-label="Open menu" tabindex="0" role="button">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileMenu" style="display:none">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- ===== MAIN BODY ===== -->
+<main>
+  <div class="title-3d">Explore Our Premium Cloud Services</div>
+  <div class="cards-container">
+    <!-- CARD 1 -->
+    <div class="card-3d">
+      <div class="card-title">Custom Website Design</div>
+      <div class="card-desc">
+        Modern, mobile-first websites crafted for your brand. Stunning visuals, world-class UX, and SEO-optimized for maximum reach.
+      </div>
+      <button class="pick-btn" onclick="pickService('Custom Website Design')">Pick Service</button>
+    </div>
+    <!-- CARD 2 -->
+    <div class="card-3d">
+      <div class="card-title">Cloud Solutions & Hosting</div>
+      <div class="card-desc">
+        Ultra-fast, secure cloud hosting with automated backups, SSL, and scalable resources. Hassle-free migrations and 24/7 support.
+      </div>
+      <button class="pick-btn" onclick="pickService('Cloud Solutions & Hosting')">Pick Service</button>
+    </div>
+    <!-- CARD 3 -->
+    <div class="card-3d">
+      <div class="card-title">AI Automation & Integrations</div>
+      <div class="card-desc">
+        Automate your business: chatbots, AI-driven workflows, API integrations. Unlock efficiency with state-of-the-art AI tools.
+      </div>
+      <button class="pick-btn" onclick="pickService('AI Automation & Integrations')">Pick Service</button>
+    </div>
+    <!-- CARD 4 -->
+    <div class="card-3d">
+      <div class="card-title">Digital Branding & Graphics</div>
+      <div class="card-desc">
+        Next-gen branding: logos, brand kits, animated graphics, 3D visuals. Stand out with VirtualWareCloud’s unique creative edge.
+      </div>
+      <button class="pick-btn" onclick="pickService('Digital Branding & Graphics')">Pick Service</button>
+    </div>
+    <!-- CARD 5 -->
+    <div class="card-3d">
+      <div class="card-title">E-commerce Solutions</div>
+      <div class="card-desc">
+        End-to-end store setups, Shopify, WooCommerce, and custom online shops. Fast, secure, ready for payments and scaling.
+      </div>
+      <button class="pick-btn" onclick="pickService('E-commerce Solutions')">Pick Service</button>
+    </div>
+    <!-- CARD 6 -->
+    <div class="card-3d">
+      <div class="card-title">IT Support & Security</div>
+      <div class="card-desc">
+        Proactive device protection, site hardening, cyber security audits, remote support, and rapid troubleshooting—peace of mind, always.
+      </div>
+      <button class="pick-btn" onclick="pickService('IT Support & Security')">Pick Service</button>
+    </div>
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-row">
+    <a class="footer-icon" href="mailto:thabo.phaahla@virtualwarecloud.com" title="Email">
+      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
+        <rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M3 7l9 7 9-7"/>
+      </svg>
+    </a>
+    <a class="footer-icon" href="https://wa.me/27820412395" title="WhatsApp" target="_blank">
+      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M8 12.5c1 .8 2.5 2 4.5 2 2 0 3-1.2 3-2.5"/>
+      </svg>
+    </a>
+    <a class="footer-icon" href="https://www.instagram.com/virtualwarecloud" title="Instagram" target="_blank">
+      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/>
+      </svg>
+    </a>
+    <a class="footer-icon" href="https://www.facebook.com/virtualwarecloud" title="Facebook" target="_blank">
+      <svg width="24" height="24" fill="none" stroke="#37b6ff" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M13 8v2h2v2h-2v4h-2v-4H9v-2h2V8h2z"/>
+      </svg>
+    </a>
+    <a class="footer-icon" href="https://virtualwarecloud
