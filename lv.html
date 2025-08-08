@@ -1,0 +1,606 @@
+<!-- Save as index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Cédric & Ruth – South African Wedding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       2025 Design System
+       - Warm luxury palette, elevated depth, soft glass surfaces
+       ========================================================= */
+    :root{
+      --gold-h:45; --gold-s:90%; --gold-l:45%;
+      --gold: hsl(var(--gold-h),var(--gold-s),var(--gold-l));
+      --gold-600: hsl(var(--gold-h),85%,40%);
+      --gold-400: hsl(var(--gold-h),95%,55%);
+      --beige: hsl(35, 20%, 88%);
+      --dark: hsl(30, 8%, 8%);
+      --ink: rgba(0,0,0,.75);
+      --white:#fff;
+
+      --shadow-elev-1: 0 5px 18px rgba(0,0,0,.08);
+      --shadow-elev-2: 0 12px 30px rgba(0,0,0,.14);
+      --shadow-elev-3: 0 30px 60px rgba(0,0,0,.18);
+
+      --glass-bg: rgba(255,255,255,.72);
+      --glass-brd: rgba(255,255,255,.55);
+
+      --radius-lg: 20px;
+      --radius-pill: 100px;
+
+      --section-pad-y: clamp(56px, 6vw, 96px);
+      --container: min(1000px, 92vw);
+      --speed: .6s;
+      --ease: cubic-bezier(.21,.88,.24,1);
+    }
+
+    /* Base Reset */
+    * { box-sizing: border-box; margin:0; padding:0 }
+    html { scroll-behavior:smooth }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--dark);
+      background:
+        radial-gradient(1200px 1200px at 80% -10%, rgba(255,215,130,.25), transparent 60%),
+        radial-gradient(1200px 1200px at -10% 90%, rgba(255,215,130,.18), transparent 60%),
+        var(--beige);
+      overflow-x: hidden;
+    }
+
+    /* Accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important }
+      html { scroll-behavior: auto }
+    }
+
+    /* ======================= Header (Glass) ======================= */
+    header{
+      position:fixed; inset:0 0 auto 0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 18px;
+      backdrop-filter: blur(14px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-brd);
+      z-index: 9999;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.75rem;
+      font-family:'Playfair Display', serif;
+      font-weight:700; letter-spacing:.4px;
+      color: var(--gold-600);
+      font-size: clamp(20px,2.4vw,24px);
+    }
+    .brand-mark{
+      display:grid; place-items:center;
+      width:42px; height:42px; border-radius:50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-400));
+      color:#fff; box-shadow: var(--shadow-elev-2);
+      transform: translateZ(0);
+    }
+
+    /* Hamburger (3D chip) */
+    .hamburger{
+      border:0; cursor:pointer; outline:none;
+      background: linear-gradient(145deg, #fff, rgba(255,255,255,.85));
+      color: var(--gold-600);
+      border-radius: 12px;
+      padding: .55rem .8rem;
+      font-size: 1.4rem;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.7),
+        0 10px 20px rgba(0,0,0,.12);
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .hamburger:active{ transform: translateY(1px) scale(.99) }
+
+    /* ================== Fullscreen Floating Nav ================== */
+    .nav-menu{
+      position: fixed; inset:0;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+      padding: 24px;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(18px) saturate(120%);
+      transform: translateX(-100%);
+      transition: transform .45s var(--ease);
+      z-index: 9998;
+    }
+    .nav-menu.open{ transform: translateX(0) }
+
+    .nav-chip{
+      display:inline-flex; align-items:center; gap:.7rem;
+      padding: .95rem 1.25rem;
+      min-width: clamp(220px, 38vw, 520px);
+      justify-content:center;
+      background: #fff;
+      color: var(--dark); text-decoration:none; font-weight:600;
+      border-radius: 16px;
+      box-shadow:
+        0 1.5px 0 rgba(255,255,255,.9) inset,
+        0 12px 28px rgba(0,0,0,.12),
+        0 2px 8px rgba(0,0,0,.06);
+      transform: perspective(800px) translateZ(0);
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s;
+    }
+    .nav-chip:hover{
+      background: linear-gradient(180deg, #fff, #faf7ef);
+      transform: perspective(800px) translateZ(16px) translateY(-2px);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,1) inset,
+        0 22px 44px rgba(0,0,0,.16),
+        0 6px 16px rgba(0,0,0,.08);
+    }
+    .lang-button{
+      cursor:pointer; border:0; font: inherit;
+    }
+
+    /* ========================= Hero ========================= */
+    .hero{
+      min-height: 100svh;
+      display:grid; place-items:center;
+      padding: calc(68px + 3vh) 16px 24px;
+      color:#fff; text-align:center;
+      position: relative;
+      isolation: isolate;
+      /* Scenic background + parallax overlay */
+      background:
+        radial-gradient(1200px 800px at 50% -10%, rgba(0,0,0,.45), transparent 60%),
+        url('images/safari01.jpg') center/cover no-repeat fixed;
+    }
+    .hero::after{
+      /* soft vignette for readability */
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(60% 60% at 50% 40%, transparent 40%, rgba(0,0,0,.35) 100%);
+      z-index:-1;
+    }
+    .hero-inner{
+      max-width: var(--container);
+      display:grid; gap:18px;
+      transform: translateZ(0);
+      animation: rise .9s var(--ease) .1s both;
+    }
+    @keyframes rise {
+      from { opacity:0; transform: translateY(12px) }
+      to   { opacity:1; transform: translateY(0) }
+    }
+    h1.hero-title{
+      font-family:'Playfair Display', serif;
+      font-weight:700;
+      font-size: clamp(28px, 5.2vw, 54px);
+      text-shadow: 0 14px 28px rgba(0,0,0,.35);
+      letter-spacing:.2px;
+    }
+    .cta{
+      justify-self:center;
+      border:0; cursor:pointer; outline:none;
+      padding: .95rem 1.4rem;
+      border-radius: var(--radius-pill);
+      font-weight:700;
+      color:#fff;
+      background: linear-gradient(135deg, var(--gold), var(--gold-400));
+      box-shadow: var(--shadow-elev-3);
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .cta:hover{ transform: translateY(-2px); box-shadow: 0 30px 60px rgba(0,0,0,.25) }
+
+    /* ===================== Floating Quick Buttons ===================== */
+    .floating-nav{
+      position: fixed; right: 14px; bottom: 16px; display:flex; flex-direction:column; gap:.7rem;
+      z-index: 9997;
+    }
+    .fab{
+      width:52px; height:52px; border-radius:50%;
+      display:grid; place-items:center; color:#fff; text-decoration:none;
+      background: linear-gradient(135deg, var(--gold), var(--gold-400));
+      box-shadow: var(--shadow-elev-2);
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .fab:hover{ transform: translateY(-2px); box-shadow: var(--shadow-elev-3) }
+
+    /* ===================== Sections & Cards ===================== */
+    section{ padding: var(--section-pad-y) 0 }
+    .wrap{ width: var(--container); margin: 0 auto; padding: 0 8px }
+
+    .card{
+      background: linear-gradient(180deg, #fff, #fbfaf4);
+      border: 1px solid rgba(255,255,255,.65);
+      backdrop-filter: blur(8px);
+      color: var(--dark);
+      border-radius: var(--radius-lg);
+      padding: clamp(22px, 3.6vw, 36px);
+      box-shadow: var(--shadow-elev-2);
+      transform-style: preserve-3d;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .card:hover{ transform: perspective(900px) rotateX(.5deg) translateZ(8px) }
+    .card h2{
+      font-family:'Playfair Display', serif;
+      font-size: clamp(22px, 3.6vw, 30px);
+      margin-bottom: 12px; color: var(--gold-600);
+    }
+    .meta{ opacity:.8; line-height:1.65 }
+
+    /* Headshot (round) */
+    .headshot{
+      width: 180px; height: 180px; border-radius: 50%;
+      object-fit: cover; object-position: center;
+      display:block; margin: 14px auto 4px auto;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,.8) inset,
+        0 14px 28px rgba(0,0,0,.25);
+      border: 4px solid #fff;
+    }
+
+    /* ===================== Gallery ===================== */
+    .gallery-grid{
+      display:grid; gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 8px;
+    }
+    .gallery-grid img{
+      width:100%; height:220px; object-fit:cover; border-radius: 14px; cursor:pointer;
+      box-shadow: var(--shadow-elev-1);
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    .gallery-grid img:hover{ transform: translateY(-3px) scale(1.02); box-shadow: var(--shadow-elev-2) }
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed; inset:0; background: rgba(0,0,0,.8);
+      display:none; align-items:center; justify-content:center; gap:18px;
+      z-index: 99999;
+    }
+    .lightbox.open{ display:flex }
+    .lightbox img{
+      max-width: min(92vw, 1200px); max-height: 86vh; border-radius: 12px;
+      box-shadow: 0 40px 80px rgba(0,0,0,.45);
+    }
+    .lb-btn{
+      cursor:pointer; border:0; background: rgba(255,255,255,.12); color:#fff;
+      width:48px; height:48px; border-radius: 50%; font-size:22px;
+      display:grid; place-items:center;
+      transition: background .2s var(--ease);
+    }
+    .lb-btn:hover{ background: rgba(255,255,255,.22) }
+
+    /* ===================== Footer ===================== */
+    footer{
+      padding: 36px 0 64px; text-align:center;
+      background: linear-gradient(180deg, #fbfaf4, #f4efe3);
+    }
+    .count{
+      display:inline-grid; grid-auto-flow:column; gap:10px; align-items:end;
+      margin-top: 10px;
+    }
+    .count-box{
+      background:#fff; color: var(--gold-600);
+      border-radius: 12px; padding: 14px 16px; min-width:84px;
+      box-shadow: var(--shadow-elev-1);
+      font-weight:700;
+    }
+    .count-box small{ display:block; color: var(--dark); opacity:.7; font-weight:600 }
+
+    /* ===================== Reveal Animations ===================== */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease) }
+    .reveal.in{ opacity:1; transform: translateY(0) }
+
+    /* ===================== Dark mode (optional) ===================== */
+    @media (prefers-color-scheme: dark){
+      body{ background: #12100e }
+      header{ background: rgba(25,22,20,.6); border-bottom-color: rgba(255,255,255,.08) }
+      .nav-menu{ background: rgba(20,18,16,.86) }
+      .nav-chip{ background: rgba(255,255,255,.96) }
+      .card{ background: linear-gradient(180deg, #1e1b18, #161310); color: #eee; border-color: rgba(255,255,255,.06) }
+      .meta{ opacity:.9 }
+      .gallery-grid img{ box-shadow: 0 6px 18px rgba(0,0,0,.35) }
+      footer{ background: #161310 }
+      .count-box{ background:#1f1b17; color: #ffd782 }
+      .count-box small{ color:#d5d0c8 }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===================== Header ===================== -->
+  <header>
+    <div class="brand">
+      <span class="brand-mark">C&R</span>
+      <span>Cédric & Ruth</span>
+    </div>
+    <button id="menu-toggle" class="hamburger" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
+  </header>
+
+  <!-- ===================== Fullscreen Nav ===================== -->
+  <nav id="navMenu" class="nav-menu" role="navigation" aria-label="Primary">
+    <a class="nav-chip" href="#home">🏠 Accueil</a>
+    <a class="nav-chip" href="#welcome">💍 Bienvenue</a>
+    <a class="nav-chip" href="#travel">✈️ Voyage</a>
+    <a class="nav-chip" href="#accommodation">🏨 Hébergement</a>
+    <a class="nav-chip" href="#itinerary">📅 Itinéraire</a>
+    <a class="nav-chip" href="#lobola">💒 Lobola & Mariage</a>
+    <a class="nav-chip" href="#discover">🌍 Découvrir</a>
+    <a class="nav-chip" href="#gallery">📸 Galerie</a>
+    <a class="nav-chip" href="#emergency">🚨 Urgence</a>
+    <button id="langToggle" class="nav-chip lang-button" type="button">🌍 FR</button>
+  </nav>
+
+  <!-- ===================== Hero ===================== -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <h1 id="heroTitle" class="hero-title">Bienvenue en Afrique du Sud 🇿🇦</h1>
+      <button class="cta" id="ctaStart">Commencez votre aventure</button>
+    </div>
+  </section>
+
+  <!-- ===================== Floating Quick Buttons ===================== -->
+  <div class="floating-nav">
+    <a class="fab" href="#home" title="Accueil">🏠</a>
+    <a class="fab" href="#lobola" title="Lobola">💒</a>
+    <a class="fab" href="https://wa.me/27829627848" target="_blank" title="WhatsApp">📱</a>
+    <a class="fab" href="mailto:phaahlaruth@gmail.com" title="Email">✉️</a>
+  </div>
+
+  <!-- ===================== Sections ===================== -->
+  <section id="welcome">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2 id="welcomeTitle">💍 Bienvenue</h2>
+        <!-- Round headshot using images/safari01.jpg -->
+        <img class="headshot" src="images/safari01.jpg" alt="Portrait de Ruth & Cédric">
+        <p id="welcomeText" class="meta">
+          Nous sommes ravis de vous accueillir en Afrique du Sud pour notre mariage.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="travel">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>✈️ Voyage & Arrivée</h2>
+        <p class="meta">
+          Vol Paris → OR Tambo<br>
+          <a href="https://www.google.com/maps?q=OR+Tambo+International+Airport" target="_blank">Voir OR Tambo sur la carte</a><br>
+          Gautrain jusqu’à Sandton<br>
+          <a href="https://www.google.com/maps?q=Gautrain+OR+Tambo" target="_blank">Voir Gautrain (OR Tambo)</a><br>
+          Brunch à Villa P, Bryanston
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="accommodation">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>🏨 Hébergement</h2>
+        <p class="meta">
+          Sandton Sun & Towers (24–26 Oct) – 📍 Corner Fifth & Alice St, Sandton • 📞 +27 11 780 5000<br>
+          Bakubung Bush Lodge (26–28 Oct) – Pilanesberg<br>
+          Private Apartment (28–31 Oct) – 📍 15 West Road South, Sandton<br>
+          Sandstone House (31 Oct–2 Nov) – 📍 Franschhoek<br>
+          Cape Royale (2–3 Nov) – 📍 Green Point, Cape Town • 📞 +27 79 326 2167
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="itinerary">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>📅 Itinéraire</h2>
+        <p class="meta">Explorez le programme du séjour jour par jour.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="lobola">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>💒 Lobola & Mariage</h2>
+        <p class="meta">Cérémonie traditionnelle suivie de notre célébration.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="discover">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>🌍 Découvrir</h2>
+        <p class="meta">Culture sud-africaine, safaris, paysages et plus encore.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <article class="card reveal">
+        <h2>📸 Galerie</h2>
+        <div class="gallery-grid" id="galleryGrid">
+          <img src="images/safari1.jpg" alt="Safari 1" data-full="images/safari1.jpg">
+          <img src="images/safari2.jpg" alt="Safari 2" data-full="images/safari2.jpg">
+          <img src="images/safari3.jpg" alt="Safari 3" data-full="images/safari3.jpg">
+          <img src="images/safari4.jpg" alt="Safari 4" data-full="images/safari4.jpg">
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="emergency">
+    <div class="wrap">
+      <article class="card reveal" data-tilt>
+        <h2>🚨 Urgence</h2>
+        <p class="meta">📞 Police/Ambulance: 10111 • 📱 Ruth: +27 82 962 7848</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== Footer / Countdown ===================== -->
+  <footer>
+    <div class="wrap">
+      <h2 style="font-family:'Playfair Display',serif; color:var(--gold-600); margin-bottom:10px;">Jours avant le mariage</h2>
+      <div class="count" aria-live="polite">
+        <div class="count-box"><span id="days">--</span><small>jours</small></div>
+        <div class="count-box"><span id="hours">--</span><small>heures</small></div>
+        <div class="count-box"><span id="minutes">--</span><small>minutes</small></div>
+        <div class="count-box"><span id="seconds">--</span><small>secondes</small></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== Lightbox ===================== -->
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Image preview">
+    <button class="lb-btn" id="lbPrev" aria-label="Previous">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-btn" id="lbNext" aria-label="Next">›</button>
+    <button class="lb-btn" id="lbClose" aria-label="Close" style="position:absolute; top:24px; right:24px;">✖</button>
+  </div>
+
+  <script>
+    // =============== Helpers ===============
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+
+    // =============== Menu Toggle (overlays everything) ===============
+    const menuBtn = $('#menu-toggle');
+    const navMenu = $('#navMenu');
+    const langToggle = $('#langToggle');
+
+    const setMenu = (open) => {
+      navMenu.classList.toggle('open', open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuBtn.textContent = open ? '✖' : '☰';
+    };
+
+    menuBtn.addEventListener('click', () => setMenu(!navMenu.classList.contains('open')));
+
+    // Close when clicking any nav link
+    $$('.nav-chip[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => setMenu(false));
+    });
+
+    // =============== Language Toggle (and close menu after) ===============
+    // Minimal i18n dictionary
+    const t = {
+      fr: {
+        hero: "Bienvenue en Afrique du Sud 🇿🇦",
+        cta: "Commencez votre aventure",
+        welcomeTitle: "💍 Bienvenue",
+        welcomeText: "Nous sommes ravis de vous accueillir en Afrique du Sud pour notre mariage.",
+        langBtn: "🌍 FR",
+        nav: ["🏠 Accueil","💍 Bienvenue","✈️ Voyage","🏨 Hébergement","📅 Itinéraire","💒 Lobola & Mariage","🌍 Découvrir","📸 Galerie","🚨 Urgence"]
+      },
+      en: {
+        hero: "Welcome to South Africa 🇿🇦",
+        cta: "Begin Your Journey",
+        welcomeTitle: "💍 Welcome",
+        welcomeText: "We are delighted to welcome you to South Africa for our wedding.",
+        langBtn: "🌍 EN",
+        nav: ["🏠 Home","💍 Welcome","✈️ Travel","🏨 Accommodation","📅 Itinerary","💒 Lobola & Wedding","🌍 Discover","📸 Gallery","🚨 Emergency"]
+      }
+    };
+    let lang = 'fr';
+    const applyLang = () => {
+      const L = t[lang];
+      $('#heroTitle').textContent = L.hero;
+      $('#ctaStart').textContent = L.cta;
+      $('#welcomeTitle').textContent = L.welcomeTitle;
+      $('#welcomeText').textContent = L.welcomeText;
+      $('#langToggle').textContent = L.langBtn;
+      // Update nav labels in place
+      const navLabels = $$('.nav-chip[href^="#"]');
+      navLabels.forEach((el, i) => el.textContent = L.nav[i] || el.textContent);
+    };
+    applyLang();
+
+    langToggle.addEventListener('click', () => {
+      lang = (lang === 'fr') ? 'en' : 'fr';
+      applyLang();
+      // also close the menu after translating
+      setMenu(false);
+    });
+
+    // =============== CTA Scroll ===============
+    $('#ctaStart').addEventListener('click', () => {
+      $('#welcome').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // =============== Countdown ===============
+    const target = new Date("2025-11-01T10:00:00+02:00");
+    const tick = () => {
+      const now = new Date();
+      const diff = Math.max(0, target - now);
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor(diff % 86400000 / 3600000);
+      const m = Math.floor(diff % 3600000 / 60000);
+      const s = Math.floor(diff % 60000 / 1000);
+      $('#days').textContent = d;
+      $('#hours').textContent = String(h).padStart(2,'0');
+      $('#minutes').textContent = String(m).padStart(2,'0');
+      $('#seconds').textContent = String(s).padStart(2,'0');
+    };
+    tick(); setInterval(tick, 1000);
+
+    // =============== Scroll Reveal (IntersectionObserver) ===============
+    const io = ('IntersectionObserver' in window)
+      ? new IntersectionObserver(entries=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+          })
+        }, {threshold:.15})
+      : null;
+    if(io){ $$('.reveal').forEach(el=> io.observe(el)) } else { $$('.reveal').forEach(el=> el.classList.add('in')) }
+
+    // =============== Hover Tilt (subtle 3D on cards) ===============
+    const applyTilt = (card) => {
+      let rect;
+      const onMove = (e) => {
+        rect = rect || card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - .5;
+        const y = (e.clientY - rect.top) / rect.height - .5;
+        card.style.transform = `perspective(900px) rotateX(${(-y*4).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(10px)`;
+      };
+      const reset = () => { card.style.transform = '' ; rect = null };
+      card.addEventListener('pointermove', onMove);
+      card.addEventListener('pointerleave', reset);
+    };
+    $$('.card[data-tilt]').forEach(applyTilt);
+
+    // =============== Gallery Lightbox ===============
+    const lb = $('#lightbox');
+    const lbImg = $('#lbImg');
+    const lbPrev = $('#lbPrev');
+    const lbNext = $('#lbNext');
+    const lbClose = $('#lbClose');
+    const thumbs = $$('#galleryGrid img');
+    let idx = 0;
+
+    const openLB = (i) => {
+      idx = i;
+      lbImg.src = thumbs[idx].dataset.full || thumbs[idx].src;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeLB = () => { lb.classList.remove('open'); document.body.style.overflow = '' };
+    const step = (dir) => {
+      idx = (idx + dir + thumbs.length) % thumbs.length;
+      lbImg.src = thumbs[idx].dataset.full || thumbs[idx].src;
+    };
+
+    thumbs.forEach((img, i)=> img.addEventListener('click', ()=> openLB(i)));
+    lbClose.addEventListener('click', closeLB);
+    lbPrev.addEventListener('click', ()=> step(-1));
+    lbNext.addEventListener('click', ()=> step(1));
+    lb.addEventListener('click', (e)=> { if(e.target === lb) closeLB() });
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLB();
+      if(e.key === 'ArrowLeft') step(-1);
+      if(e.key === 'ArrowRight') step(1);
+    });
+  </script>
+</body>
+</html>
